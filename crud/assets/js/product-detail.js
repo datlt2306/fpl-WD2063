@@ -1,11 +1,18 @@
-import { getProducts, getCart, saveCart, formatCurrency } from "./main.js";
-
 function getProductIdFromURL() {
-    // Lấy ID sản phẩm từ URL (query string)
+    return new URLSearchParams(window.location.search).get("id");
 }
 
 function renderProductDetail(productId) {
-    // Hiển thị chi tiết sản phẩm
+    const detailEl = document.querySelector("#product-detail");
+    if (!detailEl) return;
+    fetch(`https://api.fake-rest.refine.dev/products/${productId}`)
+        .then((response) => {
+            if (!response.ok) throw new Error("Lỗi API");
+            return response.json();
+        })
+        .then((product) => {
+            detailEl.innerHTML = `<h1 class="text-3xl font-bold mb-2">${product.name}</h1>`;
+        });
 }
 
 function addToCart(productId) {

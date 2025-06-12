@@ -43,6 +43,18 @@
 //     .then((data) => console.log(data))
 //     .catch((error) => console.log(error));
 
+function removeUser(id) {
+    fetch(`https://api.fake-rest.refine.dev/users/${id}`, {
+        method: "DELETE",
+    })
+        .then(() => {
+            alert("Xóa user thành công");
+            window.location.reload();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 function getUsers() {
     fetch("https://api.fake-rest.refine.dev/users")
         .then((response) => {
@@ -52,7 +64,10 @@ function getUsers() {
         .then((data) => {
             const userListEl = document.querySelector("#users");
             userListEl.innerHTML = data
-                .map((user) => `<li>${user.firstName} ${user.lastName}</li>`)
+                .map(
+                    (user) =>
+                        `<li><a href="detail.html?id=${user.id}">${user.firstName} ${user.lastName} <button onclick="removeUser(${user.id})">Xóa</button></li>`
+                )
                 .join("");
         })
         .catch((error) => {
@@ -60,3 +75,19 @@ function getUsers() {
         });
 }
 getUsers();
+
+const detailEl = document.querySelector("#detail");
+if (detailEl) {
+    const id = new URLSearchParams(window.location.search).get("id");
+    fetch(`https://api.fake-rest.refine.dev/users/${id}`)
+        .then((response) => {
+            if (!response.ok) throw new Error("Lỗi API");
+            return response.json();
+        })
+        .then((data) => {
+            detailEl.innerHTML = `<div>
+                <h2>${data.firstName} ${data.lastName}</h2>
+                <p>${data.email}</p>
+            </div>`;
+        });
+}

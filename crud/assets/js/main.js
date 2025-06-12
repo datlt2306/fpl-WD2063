@@ -26,27 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Scroll animations
-    const animateOnScroll = document.querySelectorAll(".animate-on-scroll");
-    const staggerGrids = document.querySelectorAll(".stagger-grid");
-    if (animateOnScroll.length > 0) {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
+    // const animateOnScroll = document.querySelectorAll(".animate-on-scroll");
+    // const staggerGrids = document.querySelectorAll(".stagger-grid");
+    // if (animateOnScroll.length > 0) {
+    //     const observer = new IntersectionObserver(
+    //         (entries) => {
+    //             entries.forEach((entry) => {
+    //                 if (entry.isIntersecting) {
+    //                     entry.target.classList.add("visible");
+    //                 }
+    //             });
+    //         },
+    //         { threshold: 0.1 }
+    //     );
 
-        animateOnScroll.forEach((element) => {
-            observer.observe(element);
-        });
-    }
-    staggerGrids.forEach((grid) => {
-        observer.observe(grid);
-    });
+    //     animateOnScroll.forEach((element) => {
+    //         observer.observe(element);
+    //     });
+    // }
+    // staggerGrids.forEach((grid) => {
+    //     observer.observe(grid);
+    // });
 
     // Quantity input functionality (cho cart, product-detail...)
     const quantityInputs = document.querySelectorAll(".quantity-input");
@@ -82,11 +82,5 @@ export async function fetchProducts() {
     if (!res.ok) throw new Error("Lỗi khi lấy danh sách sản phẩm");
     return await res.json();
 }
-
-function formatCurrency(amount) {
-    return amount.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-}
-
-function renderProducts(products) {}
 
 document.addEventListener("DOMContentLoaded", async () => {});
