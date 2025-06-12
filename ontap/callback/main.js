@@ -117,7 +117,3 @@ cauHon()
     .then((ketQua) => ketQua + " đi Lên Phường!")
     .then((ketQuaCuoi) => console.log(ketQuaCuoi))
     .catch((error) => console.error(error));
-
-fetch("https://api.fake-rest.refine.dev/products")
-    .then((response) => response.json())
-    .then((data) => console.log(data));
